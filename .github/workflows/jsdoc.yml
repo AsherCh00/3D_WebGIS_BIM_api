@@ -1,0 +1,57 @@
+name: Documentation - JSDoc and Markdown
+
+on: workflow_dispatch
+      
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build
+        uses: andstor/jsdoc-action@v1.2.1
+        with:
+          source_dir: ./js
+          config_file: jsdoc.conf.json
+          output_dir: ./documentation
+
+      - name: Commit files
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git commit -a -m "Add updated documentation"
+      - name: Use Node.js
+        uses: actions/setup-node@v3.7.0
+        with:
+          node-version: ${{ matrix.node-version }}      
+      - name: Install dependencies
+        run: npm install
+      - name: Create docs
+        run: node ./jsdoc2md.js 
+
+# only save the files when the previous jobs are done
+      - name: Commit files
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git commit -a -m "Add updated documentation in MD format"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}   
+      
+
+      #  this works - publishes the documentation out to a gh-pages branch in the repository
+      #  however we are not using gh-pages as our repository is private
+      # - name: Deploy
+      #  uses: peaceiris/actions-gh-pages@v3
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      #    publish_dir: ./documentation    #this takes the documentation directory from my repo and copies it and then adds the newly generated files 
+                        # results ends up in a gh-pages branch

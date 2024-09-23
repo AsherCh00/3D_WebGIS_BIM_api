@@ -1,0 +1,39 @@
+{
+  "name": "cege0043-app",
+  "version": "1.0.0",
+  "description": "Template repository for the app (front end) code for CEGE0043",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ucl-geospatial-22-23/cege0043-app-template.git"
+  },
+  "author": "ucfscde@ucl.ac.uk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ucl-geospatial-22-23/cege0043-app-template/issues"
+  },
+  "homepage": "https://github.com/ucl-geospatial-22-23/cege0043-app-template#readme",
+  "dependencies": {
+    "@jsdoc/cli": "^0.3.9",
+    "cesium": "^1.116.0",
+    "coverage": "^0.4.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "jest": "^29.7.0",
+    "jsdoc": "^4.0.2",
+    "jsdoc-to-markdown": "^8.0.0",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.2",
+    "path": "^0.12.7",
+    "pg": "^8.11.3",
+    "request-ip": "^3.3.0",
+    "supertest": "^6.3.4",
+    "wkx": "^0.5.0"
+  },
+  "scripts": {
+    "generate-docs": "jsdoc -c ./jsdoc.json",
+    "test": "jest --verbose --passWithNoTests /js",
+    "coverage": "jest --collectCoverage --passWithNoTests"
+  }
+}
